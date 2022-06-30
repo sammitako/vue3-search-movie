@@ -57,7 +57,18 @@ export default {
     };
   },
   methods: {
-    async apply() {},
+    async apply() {
+      this.$store.dispatch(
+        "movie/searchMovies",
+        // payload
+        {
+          title: this.title,
+          type: this.type,
+          number: this.number,
+          year: this.year,
+        }
+      );
+    },
   },
 };
 </script>

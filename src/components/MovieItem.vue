@@ -1,9 +1,16 @@
 <template>
-  <div></div>
+  <div>{{ movie.Title }}</div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    movie: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>
