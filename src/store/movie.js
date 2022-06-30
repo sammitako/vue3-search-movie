@@ -1,4 +1,5 @@
 import axios from "axios";
+import _uniqBy from "lodash/unionBy";
 
 export default {
   namespaced: true,
@@ -30,7 +31,7 @@ export default {
       );
       const { Search, totalResults } = res.data;
       context.commit("updateState", {
-        movies: Search, // 첫 10개 영화 목록
+        movies: _uniqBy(Search, "imdbID"), // 첫 10개 영화 목록
       });
       const total = parseInt(totalResults, 10);
       const pageLength = Math.ceil(total / 10); // 268 -> 27
@@ -44,7 +45,7 @@ export default {
           );
           const { Search } = res.data;
           context.commit("updateState", {
-            movies: [...context.state.movies, ...Search], // 첫 10개 영화 목록 + 나중에 추가된 영화 목록
+            movies: [...context.state.movies, ..._uniqBy(Search, "imdbID")], // 첫 10개 영화 목록 + 나중에 추가된 영화 목록
           });
         }
       }
