@@ -28,12 +28,26 @@ export default {
       const res = await axios.get(
         `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=1`
       );
-      console.log(res);
-
       const { Search, totalResults } = res.data;
       context.commit("updateState", {
-        movies: Search,
+        movies: Search, // 첫 10개 영화 목록
       });
+      const total = parseInt(totalResults, 10);
+      const pageLength = Math.ceil(total / 10); // 268 -> 27
+
+      // 데이터 추가 요청
+      if (pageLength > 1) {
+        for (let page = 2; page <= pageLength; page += 1) {
+          if (page > number / 10) break;
+          const res = await axios.get(
+            `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
+          );
+          const { Search } = res.data;
+          context.commit("updateState", {
+            movies: [...context.state.movies, ...Search], // 첫 10개 영화 목록 + 나중에 추가된 영화 목록
+          });
+        }
+      }
     },
   },
 };
