@@ -5,6 +5,8 @@ export default {
   namespaced: true,
   state: () => ({
     movies: [],
+    message: "Search for the movie title!",
+    loading: false,
   }),
   getters: {
     // moivesIds(state) {
@@ -24,6 +26,14 @@ export default {
   },
   actions: {
     async searchMovies(context, payload) {
+      // 유저가 Apply 버튼을 계속 눌러서 _featchMovie가 계속 실행되는 상황
+      if (context.state.loading) return;
+
+      // 검색 시작
+      context.commit("updateState", {
+        message: "",
+        loading: true,
+      });
       try {
         const res = await _fetchMovie({
           ...payload,
@@ -54,6 +64,10 @@ export default {
         context.commit("updateState", {
           movies: [], // 이미 출력된 영화가 있을 경우, 초기화
           message,
+        });
+      } finally {
+        context.commit("updateState", {
+          loading: false,
         });
       }
     },
