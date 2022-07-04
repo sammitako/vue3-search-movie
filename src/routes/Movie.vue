@@ -35,6 +35,17 @@
         </div>
         <div class="ratings">
           <h3>Ratings</h3>
+          <div class="rating-wrap">
+            <div
+              v-for="{ Source: name, Value: score } in theMovie.Ratings"
+              :key="name"
+              :title="name"
+              class="rating"
+            >
+              <img :src="require(`../../static/${name}.png`)" :alt="name" />
+              <span>{{ score }}</span>
+            </div>
+          </div>
         </div>
         <div>
           <h3>Actors</h3>
@@ -91,7 +102,7 @@ export default {
     /* 감소 너비 사용 안함 */
     flex-shrink: 0;
     width: 500px;
-    height: 500px * 3/2;
+    height: calc(500px * 3 / 2);
     margin-right: 70px;
   }
   .specs {
@@ -130,12 +141,12 @@ export default {
     /* 감소너비 0 -> 포스터가 찌그러짐을 방지 */
     flex-shrink: 0;
     width: 500px;
-    height: 500px * 3/2;
+    height: calc(500px * 3 / 2);
     margin-right: 70px;
     border-radius: 10px;
     background-color: $gray-200;
     background-size: cover;
-    background-position: cener;
+    background-position: center;
   }
   .specs {
     /* 증가 너비 사용 */
@@ -163,6 +174,19 @@ export default {
       margin-top: 20px;
     }
     .ratings {
+      .rating-wrap {
+        display: flex;
+        .rating {
+          display: flex;
+          align-items: center;
+          margin-right: 32px;
+          img {
+            height: 30px;
+            flex-shrink: 0;
+            margin-right: 6px;
+          }
+        }
+      }
     }
     h3 {
       margin: 24px 0 6px;
