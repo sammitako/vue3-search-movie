@@ -17,18 +17,41 @@
     </template>
     <!-- 상세 영화 데이터 -->
     <div v-else class="movie-details">
-      <div class="poster"></div>
-      <div class="specs"></div>
-      <div class="title">
-        {{ theMovie.Title }}
-      </div>
-      <div class="labels">
-        <span>{{ theMovie.Released }}</span>
-        <span>{{ theMovie.Runtime }}</span>
-        <span>{{ theMovie.Country }}</span>
-      </div>
-      <div class="plot">
-        {{ theMovie.Plot }}
+      <div
+        :style="{ backgroundImage: `url(${theMovie.Poster})` }"
+        class="poster"
+      ></div>
+      <div class="specs">
+        <div class="title">
+          {{ theMovie.Title }}
+        </div>
+        <div class="labels">
+          <span>{{ theMovie.Released }}</span>
+          <span>{{ theMovie.Runtime }}</span>
+          <span>{{ theMovie.Country }}</span>
+        </div>
+        <div class="plot">
+          {{ theMovie.Plot }}
+        </div>
+        <div class="ratings">
+          <h3>Ratings</h3>
+        </div>
+        <div>
+          <h3>Actors</h3>
+          {{ theMovie.Actors }}
+        </div>
+        <div>
+          <h3>Director</h3>
+          {{ theMovie.Director }}
+        </div>
+        <div>
+          <h3>Production</h3>
+          {{ theMovie.Production }}
+        </div>
+        <div>
+          <h3>Genre</h3>
+          {{ theMovie.Genre }}
+        </div>
       </div>
     </div>
   </div>
@@ -46,6 +69,7 @@ export default {
     },
     loading() {
       return this.$store.state.movie.loading;
+    },
   },
   created() {
     this.$store.dispatch("movie/searchMovieWithId", {
@@ -96,6 +120,55 @@ export default {
       width: 50%;
       height: 50px;
       margin-top: 20px;
+    }
+  }
+}
+.movie-details {
+  display: flex;
+  color: $gray-600;
+  .poster {
+    /* 감소너비 0 -> 포스터가 찌그러짐을 방지 */
+    flex-shrink: 0;
+    width: 500px;
+    height: 500px * 3/2;
+    margin-right: 70px;
+    border-radius: 10px;
+    background-color: $gray-200;
+    background-size: cover;
+    background-position: cener;
+  }
+  .specs {
+    /* 증가 너비 사용 */
+    flex-grow: 1;
+    .title {
+      color: $black;
+      font-family: "Oswald", sans-sarif;
+      font-size: 70px;
+      line-height: 1;
+      margin-bottom: 30px;
+    }
+    .labels {
+      color: $primary;
+      span {
+        &::after {
+          content: "\00b7";
+          margin: 0 6px;
+        }
+        &:last-child::after {
+          display: none;
+        }
+      }
+    }
+    .plot {
+      margin-top: 20px;
+    }
+    .ratings {
+    }
+    h3 {
+      margin: 24px 0 6px;
+      color: $black;
+      font-family: "Oswald", sans-sarif;
+      font-size: 20px;
     }
   }
 }

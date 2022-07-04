@@ -24,6 +24,7 @@ export default {
         {
           name: "Movie",
           href: "/movie/tt4520988",
+          path: /^\/movie/,
         },
         {
           name: "About",
