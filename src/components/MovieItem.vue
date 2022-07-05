@@ -35,8 +35,14 @@ export default {
   },
   methods: {
     async init() {
-      await this.$loadImage(this.movie.Poster);
-      this.imageLoading = false;
+      // 영화 포스터가 없는 경우 예외 처리
+      const poster = this.movie.Poster;
+      if (!poster || poster === "N/A") {
+        this.imageLoading = false;
+      } else {
+        await this.$loadImage(poster);
+        this.imageLoading = false;
+      }
     },
   },
 };

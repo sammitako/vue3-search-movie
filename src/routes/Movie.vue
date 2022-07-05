@@ -98,6 +98,10 @@ export default {
   },
   methods: {
     requestDiffSizeImage(url, size = 700) {
+      if (!url || url === "N/A") {
+        this.imageLoading = false;
+        return ""; // undefined로 리턴되는 것을 방지
+      }
       const src = url.replace("SX300", `SX${size}`);
       this.$loadImage(src).then(() => {
         this.imageLoading = false;
