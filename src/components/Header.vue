@@ -3,7 +3,12 @@
     <Logo />
     <div class="nav nav-pills">
       <div v-for="nav in navigations" :key="nav.name" class="nav-item">
-        <RouterLink class="nav-link" :to="nav.href" active-class="active">
+        <RouterLink
+          class="nav-link"
+          :to="nav.href"
+          active-class="active"
+          :class="{ active: isMatch(nav.path) }"
+        >
           {{ nav.name }}
         </RouterLink>
       </div>
@@ -24,7 +29,7 @@ export default {
         {
           name: "Movie",
           href: "/movie/tt4520988",
-          path: /^\/movie/,
+          path: /^\/movie/, // '/movie'로 시작
         },
         {
           name: "About",
@@ -32,6 +37,12 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    isMatch(path) {
+      if (!path) return false; // Search, About
+      return path.test(this.$route.fullPath); // 정규표현식과 fullPath가 일치하는 지 확인
+    },
   },
   components: { Logo },
 };
