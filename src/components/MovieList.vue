@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~/scss/main";
+/* @import "~/scss/main"; */
 .container {
   margin-top: 30px;
   .inner {
