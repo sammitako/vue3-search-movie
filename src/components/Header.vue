@@ -13,7 +13,7 @@
         </RouterLink>
       </div>
     </div>
-    <div class="user">
+    <div class="user" @click="toAbout">
       <img :src="image" :alt="name" />
     </div>
   </header>
@@ -54,6 +54,9 @@ export default {
       if (!path) return false; // Search, About
       return path.test(this.$route.fullPath); // 정규표현식과 fullPath가 일치하는 지 확인
     },
+    toAbout() {
+      this.$router.push("/about");
+    },
   },
   components: { Logo },
 };
@@ -85,6 +88,7 @@ header {
     top: 0;
     bottom: 0;
     margin: auto;
+    transition: 0.4s;
     right: 40px;
     &:hover {
       border: 3px solid darken($gray-200, 10%);
@@ -92,6 +96,11 @@ header {
     img {
       width: 100%;
       object-fit: cover;
+    }
+  }
+  @include media-breakpoint-down(sm) {
+    .nav {
+      display: none;
     }
   }
 }
