@@ -18,7 +18,9 @@
     <!-- 상세 영화 데이터 -->
     <div v-else class="movie-details">
       <div
-        :style="{ backgroundImage: `url(${theMovie.Poster})` }"
+        :style="{
+          backgroundImage: `url(${requestDiffSizeImage(theMovie.Poster)})`,
+        }"
         class="poster"
       ></div>
       <div class="specs">
@@ -86,6 +88,11 @@ export default {
     this.$store.dispatch("movie/searchMovieWithId", {
       id: this.$route.params.id,
     });
+  },
+  methods: {
+    requestDiffSizeImage(url, size = 700) {
+      return url.replace("SX300", `SX${size}`);
+    },
   },
 };
 </script>
