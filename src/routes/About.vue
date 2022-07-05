@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import Loader from "~/components/Loader";
 export default {
   components: {
@@ -24,18 +25,7 @@ export default {
     };
   },
   computed: {
-    image() {
-      return this.$store.state.about.image;
-    },
-    name() {
-      return this.$store.state.about.name;
-    },
-    email() {
-      return this.$store.state.about.email;
-    },
-    blog() {
-      return this.$store.state.about.blog;
-    },
+    ...mapState("about", ["image", "name", "email", "blog"]),
   },
   mounted() {
     this.init();

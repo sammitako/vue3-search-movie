@@ -8,9 +8,14 @@ export default createRouter({
   // Hash, History 모드
   // Hash 모드 -> https://google.com/#/search
   history: createWebHashHistory(),
+  scrollBehavior() {
+    // always scroll to top
+    return { top: 0 };
+  },
   // pages
   // path: https://google.com/ -> 메인 페이지
   // component: '/' 뒤에 연결할 컴포넌트
+
   routes: [
     {
       path: "/",
